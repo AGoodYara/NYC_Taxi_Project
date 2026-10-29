@@ -1,0 +1,4 @@
+﻿rule,total_matched,only_this_rule,overlap_with_other_rules
+invalid_duration,4699,158,4541
+invalid_distance,12556,5,12551
+invalid_speed,17003,56,16947

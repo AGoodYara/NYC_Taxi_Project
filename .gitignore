@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Large datasets
+data/raw/
+data/processed/dwd/*.parquet
+
+# Sensitive information
+.env
+*.key

@@ -1,0 +1,12 @@
+﻿metric,value
+total_records,3724889
+valid_trip_records,3552907
+invalid_trip_records,171982
+valid_revenue_records,3515574
+negative_duration,1
+zero_duration,45069
+zero_distance,125738
+high_speed,732
+negative_amount,39984
+zero_amount,433
+high_amount,84

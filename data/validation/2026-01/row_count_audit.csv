@@ -1,0 +1,10 @@
+﻿metric,value
+ods_total_rows,3724889
+sample_rows,372489
+sample_duplicate_rows,0
+sample_deduplicated_rows,372489
+sample_invalid_trip_rows,17166
+sample_valid_trip_rows,355323
+sample_valid_revenue_rows,351506
+dedup_balance_pass,True
+valid_view_balance_pass,True
