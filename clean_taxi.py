@@ -3,6 +3,8 @@ from pathlib import Path
 import argparse
 import json
 import pandas as pd
+import pyarrow as pa
+from dwd_schema import DWD_SCHEMA, validate_dwd_schema
 
 from cleaning_rules import (
     apply_cleaning_rules,
@@ -119,6 +121,27 @@ deduplicated_rows = len(deduplicated)
 # ====================================
 
 df = apply_cleaning_rules(deduplicated)
+# 将 pandas 数据转换为 Arrow 表
+# 按正式 DWD Schema 构建 Arrow 表
+# safe=True：禁止不安全的数据类型转换
+arrow_table = pa.Table.from_pandas(
+    df,
+    schema=DWD_SCHEMA,
+    preserve_index=False,
+    safe=True
+)
+
+# 严格检查最终 Schema
+if not validate_dwd_schema(arrow_table):
+    raise RuntimeError(
+        "DWD Schema 不符合正式规范，停止写入"
+    )
+
+# 严格检查 DWD Schema
+if not validate_dwd_schema(arrow_table):
+    raise RuntimeError(
+        "DWD Schema 不符合正式规范，停止写入"
+    )
 
 # ====================================
 # 5. 生成异常原因统计
@@ -229,7 +252,9 @@ output_file = (
     / f"yellow_taxi_dwd_{ym}{suffix}.parquet"
 )
 
-df.to_parquet(output_file, index=False)
+import pyarrow.parquet as pq
+
+pq.write_table(arrow_table, output_file)
 
 # 写入后再次检查实际行数
 written_rows = len(

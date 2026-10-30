@@ -22,6 +22,19 @@ def apply_cleaning_rules(df):
     返回带有质量标记的 DataFrame。
     """
     df = df.copy()
+        # 保留整数语义，同时允许缺失值
+    df["passenger_count"] = pd.to_numeric(
+        df["passenger_count"], errors="raise"
+    ).astype("Int64")
+
+    df["RatecodeID"] = pd.to_numeric(
+        df["RatecodeID"], errors="raise"
+    ).astype("Int64")
+
+    # 统一字符串字段
+    df["store_and_fwd_flag"] = df[
+        "store_and_fwd_flag"
+    ].astype("string")
 
     pickup = pd.to_datetime(
         df["tpep_pickup_datetime"],
