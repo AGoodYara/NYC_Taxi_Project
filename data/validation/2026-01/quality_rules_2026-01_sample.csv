@@ -1,0 +1,9 @@
+﻿rule,matched_rows,matched_pct
+missing_passenger_count,108684,29.1778
+missing_ratecode,108684,29.1778
+invalid_duration,4699,1.2615
+invalid_distance,12556,3.3708
+invalid_speed,17003,4.5647
+is_negative_amount,4094,1.0991
+is_zero_amount,49,0.0132
+is_high_amount,8,0.0021

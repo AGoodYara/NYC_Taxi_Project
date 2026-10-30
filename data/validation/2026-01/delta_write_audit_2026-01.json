@@ -1,0 +1,12 @@
+{
+  "year_month": "2026-01",
+  "input_rows": 372489,
+  "delta_written_rows": 372489,
+  "schema_pass": true,
+  "row_count_pass": true,
+  "delta_version": 0,
+  "partition_columns": [
+    "year",
+    "month"
+  ]
+}

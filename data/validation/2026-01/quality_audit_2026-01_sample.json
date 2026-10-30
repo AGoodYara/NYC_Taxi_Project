@@ -1,0 +1,24 @@
+{
+  "year_month": "2026-01",
+  "rule_version": "v1.0-candidate",
+  "sample_rate": 0.1,
+  "ods_original_rows": 3724889,
+  "processing_input_rows": 372489,
+  "duplicate_candidates": 0,
+  "duplicates_removed": 0,
+  "rows_after_deduplication": 372489,
+  "rows_filtered": 0,
+  "dwd_expected_rows": 372489,
+  "valid_trip_rows": 355323,
+  "invalid_trip_rows": 17166,
+  "valid_revenue_rows": 351506,
+  "row_count_pass": true,
+  "thresholds": {
+    "max_duration_minutes": 180,
+    "max_distance_miles": 100,
+    "max_speed_mph": 100,
+    "max_total_amount": 500
+  },
+  "dwd_actual_written_rows": 372489,
+  "write_validation_pass": true
+}

@@ -1,0 +1,106 @@
+{
+  "source_file": "yellow_tripdata_2026-01.parquet",
+  "row_count": 3724889,
+  "fields": [
+    {
+      "name": "VendorID",
+      "type": "int32",
+      "nullable": true
+    },
+    {
+      "name": "tpep_pickup_datetime",
+      "type": "timestamp[us]",
+      "nullable": true
+    },
+    {
+      "name": "tpep_dropoff_datetime",
+      "type": "timestamp[us]",
+      "nullable": true
+    },
+    {
+      "name": "passenger_count",
+      "type": "int64",
+      "nullable": true
+    },
+    {
+      "name": "trip_distance",
+      "type": "double",
+      "nullable": true
+    },
+    {
+      "name": "RatecodeID",
+      "type": "int64",
+      "nullable": true
+    },
+    {
+      "name": "store_and_fwd_flag",
+      "type": "large_string",
+      "nullable": true
+    },
+    {
+      "name": "PULocationID",
+      "type": "int32",
+      "nullable": true
+    },
+    {
+      "name": "DOLocationID",
+      "type": "int32",
+      "nullable": true
+    },
+    {
+      "name": "payment_type",
+      "type": "int64",
+      "nullable": true
+    },
+    {
+      "name": "fare_amount",
+      "type": "double",
+      "nullable": true
+    },
+    {
+      "name": "extra",
+      "type": "double",
+      "nullable": true
+    },
+    {
+      "name": "mta_tax",
+      "type": "double",
+      "nullable": true
+    },
+    {
+      "name": "tip_amount",
+      "type": "double",
+      "nullable": true
+    },
+    {
+      "name": "tolls_amount",
+      "type": "double",
+      "nullable": true
+    },
+    {
+      "name": "improvement_surcharge",
+      "type": "double",
+      "nullable": true
+    },
+    {
+      "name": "total_amount",
+      "type": "double",
+      "nullable": true
+    },
+    {
+      "name": "congestion_surcharge",
+      "type": "double",
+      "nullable": true
+    },
+    {
+      "name": "Airport_fee",
+      "type": "double",
+      "nullable": true
+    },
+    {
+      "name": "cbd_congestion_fee",
+      "type": "double",
+      "nullable": true
+    }
+  ]
+}

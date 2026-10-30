@@ -11,3 +11,6 @@ data/processed/dwd/*.parquet
 # Sensitive information
 .env
 *.key
+
+# Delta Lake generated data
+data/delta_test/
