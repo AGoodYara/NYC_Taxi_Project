@@ -76,7 +76,7 @@ def process_month_azure(year, month, cleanup=False):
     durations = {}
 
     durations["download"] = run_script(
-        "download_taxi.py",
+        "src/ingestion/download_taxi.py",
         year,
         month
     )
@@ -88,7 +88,7 @@ def process_month_azure(year, month, cleanup=False):
     )
 
     durations["upload"] = run_script(
-        "upload_to_adls.py",
+        "src/ingestion/upload_to_adls.py",
         year,
         month
     )
