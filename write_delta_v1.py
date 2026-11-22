@@ -9,7 +9,7 @@ import pyarrow as pa
 import pyarrow.parquet as pq
 from deltalake import DeltaTable, write_deltalake
 
-from dwd_schema import DWD_SCHEMA, validate_dwd_schema
+from src.processing.dwd_schema import DWD_SCHEMA, validate_dwd_schema
 
 
 # ============================================================

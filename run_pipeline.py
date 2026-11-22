@@ -82,7 +82,7 @@ def process_month_azure(year, month, cleanup=False):
     )
 
     durations["clean"] = run_script(
-        "clean_taxi.py",
+        "src/processing/clean_taxi.py",
         year,
         month
     )
@@ -141,7 +141,7 @@ def process_month_local_delta(
 
     # STEP 1: DWD cleaning and schema validation
     durations["clean"] = run_script(
-        "clean_taxi.py",
+        "src/processing/clean_taxi.py",
         year,
         month,
         [
