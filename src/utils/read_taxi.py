@@ -3,7 +3,7 @@ import pandas as pd
 from pathlib import Path
 
 # 获取当前 Python 文件所在的项目目录
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(__file__).resolve().parents[2]
 
 # 原始数据路径
 input_path = BASE_DIR / "data" / "raw" / "yellow_tripdata_2026-01.parquet"
