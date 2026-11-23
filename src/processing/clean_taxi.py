@@ -15,7 +15,7 @@ from cleaning_rules import (
     MAX_TOTAL_AMOUNT,
 )
 
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(__file__).resolve().parents[2]
 
 parser = argparse.ArgumentParser(
     description="NYC Yellow Taxi DWD 清洗与质量审计"

@@ -4,7 +4,7 @@ import argparse
 import json
 import pyarrow.parquet as pq
 
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(__file__).resolve().parents[2]
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--year", type=int, default=2026)

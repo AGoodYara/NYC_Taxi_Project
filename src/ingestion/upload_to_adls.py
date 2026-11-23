@@ -31,7 +31,7 @@ PARTITION = f"year={YEAR}/month={MONTH:02d}"
 # 2. 本地文件路径
 # ============================
 
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(__file__).resolve().parents[2]
 
 RAW_DIR = BASE_DIR / "data" / "raw"
 DWD_DIR = BASE_DIR / "data" / "processed" / "dwd"

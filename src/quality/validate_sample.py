@@ -4,7 +4,7 @@ import argparse
 import pandas as pd
 import numpy as np
 
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(__file__).resolve().parents[2]
 
 # 当前脚本的阈值，仅用于审计，不代表已经验证合理
 MAX_DURATION_MIN = 180

@@ -76,19 +76,19 @@ def process_month_azure(year, month, cleanup=False):
     durations = {}
 
     durations["download"] = run_script(
-        "download_taxi.py",
+        "src/ingestion/download_taxi.py",
         year,
         month
     )
 
     durations["clean"] = run_script(
-        "clean_taxi.py",
+        "src/processing/clean_taxi.py",
         year,
         month
     )
 
     durations["upload"] = run_script(
-        "upload_to_adls.py",
+        "src/ingestion/upload_to_adls.py",
         year,
         month
     )
@@ -141,7 +141,7 @@ def process_month_local_delta(
 
     # STEP 1: DWD cleaning and schema validation
     durations["clean"] = run_script(
-        "clean_taxi.py",
+        "src/processing/clean_taxi.py",
         year,
         month,
         [
@@ -170,7 +170,7 @@ def process_month_local_delta(
 
     # STEP 3: Delta Lake partition write and audit
     durations["delta"] = run_script(
-        "write_delta_v1.py",
+        "src/storage/write_delta_v1.py",
         year,
         month
     )
