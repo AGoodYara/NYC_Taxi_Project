@@ -170,7 +170,7 @@ def process_month_local_delta(
 
     # STEP 3: Delta Lake partition write and audit
     durations["delta"] = run_script(
-        "write_delta_v1.py",
+        "src/storage/write_delta_v1.py",
         year,
         month
     )

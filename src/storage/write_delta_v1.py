@@ -1,4 +1,3 @@
-
 from pathlib import Path
 import argparse
 import json
@@ -9,14 +8,11 @@ import pyarrow as pa
 import pyarrow.parquet as pq
 from deltalake import DeltaTable, write_deltalake
 
+# Project root configuration
+BASE_DIR = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(BASE_DIR))
+
 from src.processing.dwd_schema import DWD_SCHEMA, validate_dwd_schema
-
-
-# ============================================================
-# 1. 路径与参数配置
-# ============================================================
-
-BASE_DIR = Path(__file__).resolve().parent
 
 parser = argparse.ArgumentParser(
     description="NYC Yellow Taxi DWD Delta Lake v1 写入与验证"
