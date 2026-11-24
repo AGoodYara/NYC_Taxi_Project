@@ -1,0 +1,22 @@
+{
+    "table_name": "dws_daily_trips",
+    "source_table": "fact_taxi_trips",
+    "source_delta_version": 0,
+    "dws_delta_version": 1,
+    "execution_time_utc": "2026-11-24T09:06:58.965622+00:00",
+    "source_rows": 712476,
+    "dws_rows": 60,
+    "source_valid_trips": 678788,
+    "dws_valid_trips": 678788,
+    "source_valid_revenue_usd": 20216197.22,
+    "dws_valid_revenue_usd": 20216197.22,
+    "checks": {
+        "total_trips_pass": true,
+        "valid_trips_pass": true,
+        "invalid_trips_pass": true,
+        "revenue_pass": true,
+        "date_key_unique_pass": true,
+        "date_dimension_coverage_pass": true
+    },
+    "validation_pass": true
+}
