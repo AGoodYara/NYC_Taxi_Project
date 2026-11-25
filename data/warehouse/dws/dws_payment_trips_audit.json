@@ -1,0 +1,27 @@
+{
+    "table_name": "dws_payment_trips",
+    "source_table": "fact_taxi_trips",
+    "source_delta_version": 0,
+    "payment_delta_version": 0,
+    "dws_delta_version": 0,
+    "execution_time_utc": "2026-11-25T09:53:43.330811+00:00",
+    "grain": "One row per payment method",
+    "source_rows": 712476,
+    "dws_rows": 5,
+    "source_valid_trips": 678788,
+    "source_valid_revenue_trips": 672401,
+    "source_valid_revenue_usd": 20216197.22,
+    "dws_valid_revenue_usd": 20216197.22,
+    "revenue_difference_usd": 0.0,
+    "checks": {
+        "row_count_pass": true,
+        "total_trips_pass": true,
+        "valid_trips_pass": true,
+        "invalid_trips_pass": true,
+        "valid_revenue_trips_pass": true,
+        "payment_key_unique_pass": true,
+        "payment_coverage_pass": true,
+        "revenue_pass": true
+    },
+    "validation_pass": true
+}

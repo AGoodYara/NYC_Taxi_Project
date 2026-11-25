@@ -1,0 +1,25 @@
+{
+    "table_name": "dws_zone_trips",
+    "source_table": "fact_taxi_trips",
+    "source_delta_version": 0,
+    "location_delta_version": 0,
+    "dws_delta_version": 0,
+    "execution_time_utc": "2026-11-25T09:51:51.843271+00:00",
+    "grain": "One row per pickup location",
+    "source_rows": 712476,
+    "dws_rows": 265,
+    "source_valid_trips": 678788,
+    "source_valid_revenue_usd": 20216197.22,
+    "dws_valid_revenue_usd": 20216197.22,
+    "revenue_difference_usd": 0.0,
+    "checks": {
+        "row_count_pass": true,
+        "total_trips_pass": true,
+        "valid_trips_pass": true,
+        "invalid_trips_pass": true,
+        "zone_key_unique_pass": true,
+        "revenue_pass": true,
+        "location_coverage_pass": true
+    },
+    "validation_pass": true
+}

@@ -1,0 +1,36 @@
+{
+    "table_name": "dws_hourly_trips",
+    "source_table": "fact_taxi_trips",
+    "source_delta_version": 0,
+    "dws_delta_version": 1,
+    "execution_time_utc": "2026-11-24T09:18:11.509220+00:00",
+    "grain": "One row per pickup date and hour",
+    "source_rows": 712476,
+    "dws_rows": 1440,
+    "source_valid_trips": 678788,
+    "source_valid_revenue_usd": 20216197.22,
+    "dws_valid_revenue_usd": 20216197.22,
+    "revenue_difference_usd": 0.0,
+    "peak_definition": {
+        "morning_hours": [
+            7,
+            8,
+            9
+        ],
+        "evening_hours": [
+            16,
+            17,
+            18
+        ]
+    },
+    "checks": {
+        "row_count_pass": true,
+        "total_trips_pass": true,
+        "valid_trips_pass": true,
+        "invalid_trips_pass": true,
+        "date_hour_unique_pass": true,
+        "revenue_pass": true,
+        "date_coverage_pass": true
+    },
+    "validation_pass": true
+}
