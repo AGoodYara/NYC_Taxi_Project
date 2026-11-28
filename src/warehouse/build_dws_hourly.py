@@ -97,6 +97,38 @@ pickup = pd.to_datetime(
 if pickup.isna().any():
     raise ValueError("Invalid pickup timestamps found")
 
+
+# ============================================================
+# Apply unified analysis date range
+# ============================================================
+
+START_DATE = pd.Timestamp("2026-01-01")
+END_DATE = pd.Timestamp("2026-03-01")
+
+analysis_mask = (
+    (pickup >= START_DATE)
+    & (pickup < END_DATE)
+)
+
+source_rows_before_filter = len(fact)
+
+fact = fact.loc[analysis_mask].copy()
+pickup = pickup.loc[analysis_mask].copy()
+
+source_rows_after_filter = len(fact)
+
+print("Analysis period:", START_DATE.date(), "to",
+      (END_DATE - pd.Timedelta(days=1)).date())
+print("Fact rows before filter:", source_rows_before_filter)
+print("Fact rows after filter:", source_rows_after_filter)
+print("Excluded rows:", source_rows_before_filter - source_rows_after_filter)
+
+if len(fact) != 712475:
+    raise ValueError(
+        f"Unexpected filtered row count: {len(fact)}"
+    )
+
+
 fact["pickup_hour"] = pickup.dt.hour.astype("int8")
 
 # Verify date key agrees with pickup timestamp.
@@ -172,6 +204,20 @@ print("Observed date-hour groups:", len(hourly))
 # ============================================================
 
 print("\n========== COMPLETE DATE-HOUR GRID ==========")
+
+# Filter date dimension to the analysis period.
+dim_date["full_date"] = pd.to_datetime(
+    dim_date["full_date"],
+    errors="coerce"
+)
+
+dim_date = dim_date[
+    (dim_date["full_date"] >= pd.Timestamp("2026-01-01"))
+    & (dim_date["full_date"] < pd.Timestamp("2026-03-01"))
+].copy()
+
+print("Analysis date dimension rows:", len(dim_date))
+
 
 date_hours = pd.MultiIndex.from_product(
     [

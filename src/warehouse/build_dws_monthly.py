@@ -65,6 +65,42 @@ pickup = pd.to_datetime(
 if pickup.isna().any():
     raise ValueError("Invalid pickup timestamps")
 
+
+# ============================================================
+# Apply unified analysis date range
+# ============================================================
+
+print("\n========== FILTER ANALYSIS PERIOD ==========")
+
+START_DATE = pd.Timestamp("2026-01-01")
+END_DATE = pd.Timestamp("2026-03-01")
+
+source_rows_before_filter = len(fact)
+
+analysis_mask = (
+    (pickup >= START_DATE)
+    & (pickup < END_DATE)
+)
+
+fact = fact.loc[analysis_mask].copy()
+pickup = pickup.loc[analysis_mask].copy()
+
+source_rows_after_filter = len(fact)
+
+print("Analysis period: 2026-01-01 to 2026-02-28")
+print("Fact rows before filter:", source_rows_before_filter)
+print("Fact rows after filter:", source_rows_after_filter)
+print(
+    "Excluded rows:",
+    source_rows_before_filter - source_rows_after_filter
+)
+
+if len(fact) != 712475:
+    raise ValueError(
+        f"Unexpected filtered row count: {len(fact)}"
+    )
+
+
 fact["year"] = pickup.dt.year.astype("int32")
 fact["month"] = pickup.dt.month.astype("int8")
 

@@ -150,14 +150,74 @@ check(
     amount[valid_revenue].notna().all(),
 )
 
-source_rows = int(len(fact))
-source_valid = int(valid_trip.sum())
+
+
+# ============================================================
+# Original Fact baseline
+# ============================================================
+
+original_source_rows = int(len(fact))
+
+# ============================================================
+# Analysis period baseline: Jan-Feb 2026
+# ============================================================
+
+pickup = pd.to_datetime(
+    fact["tpep_pickup_datetime"],
+    errors="coerce",
+)
+
+if pickup.isna().any():
+    raise ValueError("Invalid pickup timestamps found")
+
+START_DATE = pd.Timestamp("2026-01-01")
+END_DATE = pd.Timestamp("2026-03-01")
+
+analysis_mask = (
+    (pickup >= START_DATE)
+    & (pickup < END_DATE)
+)
+
+analysis_fact = fact.loc[analysis_mask].copy()
+
+analysis_valid_trip = (
+    analysis_fact["is_valid_trip"]
+    .fillna(False)
+    .astype(bool)
+)
+
+analysis_valid_revenue = (
+    analysis_fact["is_valid_revenue"]
+    .fillna(False)
+    .astype(bool)
+)
+
+analysis_amount = pd.to_numeric(
+    analysis_fact["total_amount"],
+    errors="coerce",
+)
+
+if analysis_amount[analysis_valid_revenue].isna().any():
+    raise ValueError("Valid revenue records have null amounts")
+
+source_rows = int(len(analysis_fact))
+source_valid = int(analysis_valid_trip.sum())
 source_invalid = source_rows - source_valid
+
 source_revenue = round(
-    float(amount.where(valid_revenue, 0.0).sum()), 2
+    float(
+        analysis_amount.where(
+            analysis_valid_revenue, 0.0
+        ).sum()
+    ),
+    2,
 )
 
 details["fact_baseline"] = {
+    "original_fact_rows": original_source_rows,
+    "analysis_period": "2026-01-01 to 2026-02-28",
+    "analysis_rows": source_rows,
+    "excluded_rows": original_source_rows - source_rows,
     "total_trips": source_rows,
     "valid_trips": source_valid,
     "invalid_trips": source_invalid,
@@ -166,6 +226,23 @@ details["fact_baseline"] = {
 
 print(details["fact_baseline"])
 
+
+
+
+check(
+    "fact_original_row_count",
+    original_source_rows == 712476,
+)
+
+check(
+    "analysis_period_row_count",
+    source_rows == 712475,
+)
+
+check(
+    "analysis_period_excluded_rows",
+    original_source_rows - source_rows == 1,
+)
 
 print("\n========== DWS CROSS-TABLE RECONCILIATION ==========")
 
@@ -226,6 +303,42 @@ for name, keys in grain_keys.items():
 
 
 print("\n========== DAILY VS MONTHLY ==========")
+
+print("\n========== ANALYSIS PERIOD VALIDATION ==========")
+
+analysis_dates = pd.to_datetime(
+    fact["tpep_pickup_datetime"],
+    errors="coerce",
+)
+
+analysis_start = pd.Timestamp("2026-01-01")
+analysis_end = pd.Timestamp("2026-03-01")
+
+check(
+    "daily_date_range",
+    (
+        tables["dws_daily_trips"]["date_key"].between(
+            20260101, 20260228
+        ).all()
+        and len(tables["dws_daily_trips"]) == 59
+    ),
+)
+
+check(
+    "hourly_date_range",
+    (
+        tables["dws_hourly_trips"]["date_key"].between(
+            20260101, 20260228
+        ).all()
+        and len(tables["dws_hourly_trips"]) == 1416
+    ),
+)
+
+check(
+    "monthly_date_range",
+    set(tables["dws_monthly_trips"]["month_key"])
+    == {202601, 202602},
+)
 
 daily = tables["dws_daily_trips"].copy()
 monthly = tables["dws_monthly_trips"].copy()

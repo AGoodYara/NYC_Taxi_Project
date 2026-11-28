@@ -34,6 +34,7 @@ payment_dt = DeltaTable(str(PAYMENT_PATH))
 fact = fact_dt.to_pandas(
     columns=[
         "payment_key",
+        "tpep_pickup_datetime",
         "is_valid_trip",
         "is_valid_revenue",
         "total_amount",
@@ -54,6 +55,47 @@ if fact.empty:
 
 if payment.empty:
     raise ValueError("Payment dimension is empty")
+
+
+# ============================================================
+# Apply unified analysis date range
+# ============================================================
+
+print("\n========== FILTER ANALYSIS PERIOD ==========")
+
+START_DATE = pd.Timestamp("2026-01-01")
+END_DATE = pd.Timestamp("2026-03-01")
+
+pickup = pd.to_datetime(
+    fact["tpep_pickup_datetime"],
+    errors="coerce",
+)
+
+if pickup.isna().any():
+    raise ValueError("Invalid pickup timestamps found")
+
+source_rows_before_filter = len(fact)
+
+analysis_mask = (
+    (pickup >= START_DATE)
+    & (pickup < END_DATE)
+)
+
+fact = fact.loc[analysis_mask].copy()
+
+source_rows_after_filter = len(fact)
+
+print("Analysis period: 2026-01-01 to 2026-02-28")
+print("Fact rows before filter:", source_rows_before_filter)
+print("Fact rows after filter:", source_rows_after_filter)
+print(
+    "Excluded rows:",
+    source_rows_before_filter - source_rows_after_filter
+)
+
+if fact.empty:
+    raise ValueError("No fact records in analysis period")
+
 
 if "payment_key" not in payment.columns:
     raise ValueError("payment_key missing from dimension")

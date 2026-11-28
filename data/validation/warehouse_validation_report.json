@@ -1,16 +1,16 @@
 {
     "report_name": "NYC Taxi Warehouse Validation",
-    "execution_time_utc": "2026-11-25T09:57:34.479719+00:00",
+    "execution_time_utc": "2026-11-28T04:00:34.872880+00:00",
     "delta_versions": {
         "dim_date": 0,
         "dim_location": 0,
         "dim_payment": 0,
         "fact_taxi_trips": 0,
-        "dws_daily_trips": 1,
-        "dws_hourly_trips": 1,
-        "dws_zone_trips": 0,
-        "dws_payment_trips": 0,
-        "dws_monthly_trips": 0
+        "dws_daily_trips": 2,
+        "dws_hourly_trips": 3,
+        "dws_zone_trips": 1,
+        "dws_payment_trips": 1,
+        "dws_monthly_trips": 1
     },
     "checks": {
         "dim_date_primary_key": true,
@@ -22,6 +22,9 @@
         "fact_dropoff_location_key_foreign_key": true,
         "fact_payment_key_foreign_key": true,
         "valid_revenue_amount_not_null": true,
+        "fact_original_row_count": true,
+        "analysis_period_row_count": true,
+        "analysis_period_excluded_rows": true,
         "dws_daily_trips_total_trips": true,
         "dws_daily_trips_valid_trips": true,
         "dws_daily_trips_invalid_trips": true,
@@ -47,6 +50,9 @@
         "dws_zone_trips_grain_unique": true,
         "dws_payment_trips_grain_unique": true,
         "dws_monthly_trips_grain_unique": true,
+        "daily_date_range": true,
+        "hourly_date_range": true,
+        "monthly_date_range": true,
         "daily_monthly_month_coverage": true,
         "daily_monthly_total_trips": true,
         "daily_monthly_valid_trips": true,
@@ -55,44 +61,48 @@
     },
     "details": {
         "fact_baseline": {
-            "total_trips": 712476,
-            "valid_trips": 678788,
+            "original_fact_rows": 712476,
+            "analysis_period": "2026-01-01 to 2026-02-28",
+            "analysis_rows": 712475,
+            "excluded_rows": 1,
+            "total_trips": 712475,
+            "valid_trips": 678787,
             "invalid_trips": 33688,
-            "valid_revenue_usd": 20216197.22
+            "valid_revenue_usd": 20216180.0
         },
         "dws_daily_trips": {
-            "total_trips": 712476,
-            "valid_trips": 678788,
+            "total_trips": 712475,
+            "valid_trips": 678787,
             "invalid_trips": 33688,
-            "valid_revenue_usd": 20216197.22
+            "valid_revenue_usd": 20216180.0
         },
         "dws_hourly_trips": {
-            "total_trips": 712476,
-            "valid_trips": 678788,
+            "total_trips": 712475,
+            "valid_trips": 678787,
             "invalid_trips": 33688,
-            "valid_revenue_usd": 20216197.22
+            "valid_revenue_usd": 20216180.0
         },
         "dws_zone_trips": {
-            "total_trips": 712476,
-            "valid_trips": 678788,
+            "total_trips": 712475,
+            "valid_trips": 678787,
             "invalid_trips": 33688,
-            "valid_revenue_usd": 20216197.22
+            "valid_revenue_usd": 20216180.0
         },
         "dws_payment_trips": {
-            "total_trips": 712476,
-            "valid_trips": 678788,
+            "total_trips": 712475,
+            "valid_trips": 678787,
             "invalid_trips": 33688,
-            "valid_revenue_usd": 20216197.22
+            "valid_revenue_usd": 20216180.0
         },
         "dws_monthly_trips": {
-            "total_trips": 712476,
-            "valid_trips": 678788,
+            "total_trips": 712475,
+            "valid_trips": 678787,
             "invalid_trips": 33688,
-            "valid_revenue_usd": 20216197.22
+            "valid_revenue_usd": 20216180.0
         }
     },
-    "total_checks": 39,
-    "passed_checks": 39,
+    "total_checks": 45,
+    "passed_checks": 45,
     "failed_checks": [],
     "validation_pass": true
 }

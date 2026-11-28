@@ -98,6 +98,52 @@ fact["pickup_date_key"] = (
 
 
 # ============================================================
+# Apply unified analysis date range
+# ============================================================
+
+START_DATE = pd.Timestamp("2026-01-01")
+END_DATE = pd.Timestamp("2026-03-01")
+
+# Convert date dimension date column.
+dim_date["full_date"] = pd.to_datetime(
+    dim_date["full_date"],
+    errors="coerce"
+)
+
+if dim_date["full_date"].isna().any():
+    raise ValueError("Invalid dates in dim_date")
+
+# Keep only January and February 2026.
+dim_date = dim_date[
+    (dim_date["full_date"] >= START_DATE)
+    & (dim_date["full_date"] < END_DATE)
+].copy()
+
+# Get allowed date keys.
+analysis_date_keys = set(
+    dim_date["date_key"].astype("int32")
+)
+
+# Filter fact records using pickup date key.
+source_rows_before_filter = len(fact)
+
+fact = fact[
+    fact["pickup_date_key"].isin(
+        analysis_date_keys
+    )
+].copy()
+
+source_rows_after_filter = len(fact)
+
+print("Analysis period:", START_DATE.date(), "to", (END_DATE - pd.Timedelta(days=1)).date())
+print("Fact rows before filter:", source_rows_before_filter)
+print("Fact rows after filter:", source_rows_after_filter)
+print("Excluded rows:", source_rows_before_filter - source_rows_after_filter)
+print("Analysis dates:", len(dim_date))
+
+
+
+# ============================================================
 # 4. Calculate daily metrics
 # ============================================================
 
